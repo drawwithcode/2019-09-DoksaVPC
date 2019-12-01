@@ -83,7 +83,7 @@ function deviceShaken() {
 }
 
 //constructor for the ketchup drop object
-function KetchupDrop(_size _xOffset) {
+function KetchupDrop(_size, _xOffset) {
   this.x = width / 2 -2 + _xOffset;
   this.y = height / 3;
   this.size = _size;

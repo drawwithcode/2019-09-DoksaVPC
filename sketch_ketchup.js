@@ -6,8 +6,6 @@ var bottleTop;
 var bottleTopOpen;
 //array that contains all the drops of ketchup created when pouring it
 var allTheDrops = [];
-//a variable that will set a time span between each drop
-var dropLimiter = 0;
 
 function setup() {
   frameRate(12);
@@ -47,11 +45,6 @@ function draw() {
   if (rotationZ > 130 && rotationZ < 220) {
     openTop();
   }
-
-  //countdown for the drop limiter
-  if (dropLimiter > 0) {
-    dropLimiter--;
-  }
 }
 
 // prevent dragging the screen
@@ -76,12 +69,11 @@ function openTop() {
   }
 }
 
-//creates a new drop, sets the limit to one each 3 frames
+//creates a new drop with slightly random size and x-position, then adds it in allTheDrops array
 function pour() {
-  if (bottleTopOpen.hasClass("topOpen") === true && dropLimiter === 0) {
-    var ketchupDrop = new KetchupDrop((height / 30) * random(1, 1.5));
+  if (bottleTopOpen.hasClass("topOpen") === true) {
+    var ketchupDrop = new KetchupDrop((height / 30) * random(1, 1.5), random(0, 4));
     allTheDrops.push(ketchupDrop);
-    dropLimiter = 2;
   }
 }
 
@@ -91,8 +83,8 @@ function deviceShaken() {
 }
 
 //constructor for the ketchup drop object
-function KetchupDrop(_size) {
-  this.x = width / 2;
+function KetchupDrop(_size _xOffset) {
+  this.x = width / 2 -2 + _xOffset;
   this.y = height / 3;
   this.size = _size;
   this.display = function() {
